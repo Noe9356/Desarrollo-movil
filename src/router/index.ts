@@ -4,6 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.vue';
 
 
 const Login = () => import('@/views/login.vue');
+const Registro = () => import('@/views/Registro.vue');
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,7 +13,19 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/login',
-    component: Login
+    name: 'Login',
+    component: Login,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/registro',
+    name: 'Registro',
+    component: Registro,
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: '/seccion',
@@ -29,6 +42,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    
-  }
+    if(to.meta.requiresAuth && !localStorage.getItem('token')) {
+      next('/login')
+    } else {
+      next()
+    }
+});
 export default router

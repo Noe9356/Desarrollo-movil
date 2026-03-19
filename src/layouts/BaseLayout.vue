@@ -15,7 +15,7 @@
            <div slot="content">
              <ion-list>
                     <ion-item>
-                  <ion-label>Pokémon Yellow</ion-label>
+                    <ion-label>Pokémon Yellow</ion-label>
                      </ion-item>
                      <ion-item>
                       <ion-label>Mega Man X</ion-label>
@@ -25,18 +25,18 @@
                          </ion-item>
                           <ion-item>
                            <ion-label>Pac-Man</ion-label>
-                        </ion-item>
-                        <ion-item>
+                         </ion-item>
+                         <ion-item>
                           <ion-label>Super Mario World</ion-label>
                     </ion-item>
-            </ion-list>
+             </ion-list>
            </div>
          </ion-accordion>
            <ion-accordion value="second">
-           <ion-item slot="header" color="light">
-            <ion-label>Second Accordion</ion-label>
-           </ion-item>
-            <div slot="content">
+            <ion-item slot="header" color="light">
+              <ion-label>Second Accordion</ion-label>
+               </ion-item>
+                <div slot="content">
                 <ion-list>
                     <ion-item>
                   <ion-label>Pokémon Yellow</ion-label>
@@ -49,8 +49,8 @@
                          </ion-item>
                           <ion-item>
                            <ion-label>Pac-Man</ion-label>
-                        </ion-item>
-                        <ion-item>
+                         </ion-item>
+                         <ion-item>
                           <ion-label>Super Mario World</ion-label>
                      </ion-item>
                      </ion-list>
@@ -73,8 +73,8 @@
                          </ion-item>
                           <ion-item>
                            <ion-label>Pac-Man</ion-label>
-                        </ion-item>
-                        <ion-item>
+                         </ion-item>
+                         <ion-item>
                           <ion-label>Super Mario World</ion-label>
                      </ion-item>
              </ion-list>
@@ -97,7 +97,7 @@
 
 <script setup lang="ts">
   import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList } from '@ionic/vue';
+  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, } from '@ionic/vue';
 </script>
 
 <style scoped>

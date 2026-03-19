@@ -1,11 +1,10 @@
-
 <template>
     <ion-page>
         <ion-header>
             <ion-toolbar>
                 <ion-title>Menu</ion-title>
                 <ion-buttons slot="end">
-                    <ion-button fill="solid" @click="router.push({ name: 'Registro' })">Registrarse</ion-button>
+                    <ion-button fill="solid" @click="router.push({ name: 'login' })">Login</ion-button>
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
@@ -13,9 +12,9 @@
 
           <ion-item lines="none">  
           <ion-input 
-             label="Usuario" 
+             label="Usuario"
+             class="ion-margin-top"  
              label-placement="floating"
-             class="ion-margin-top" 
              fill="outline" 
              v-model="userStore.login.username"
              placeholder="Enter text">
@@ -27,9 +26,9 @@
              label="Contraseña" 
              label-placement="floating"
              class="ion-margin-top" 
-             fill="outline"
-             v-model="userStore.login.password" 
-             placeholder="Enter text" 
+             fill="outline" 
+             placeholder="Enter text"
+            v-model="userStore.login.password" 
              type="password">
         </ion-input>
         </ion-item>
@@ -41,7 +40,7 @@
 
 </template>
 <script lang="ts" setup>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonButton, IonButtons} from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonButton, IonButtons } from '@ionic/vue';
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 

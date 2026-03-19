@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import axiosClient from '@/axios/axiosClient';
 
 export const useUserStore = defineStore('user', () => {
     const registro = ref({
