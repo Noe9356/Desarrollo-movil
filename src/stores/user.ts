@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import axiosRiksiri from '@/axios/axiosRiksiri'; 
 
 export const useUserStore = defineStore('user', () => {
     const registro = ref({
@@ -12,5 +13,9 @@ export const useUserStore = defineStore('user', () => {
         password: null,
     });
 
-    return { registro, login };
+    function $login() {
+        return axiosRiksiri.post('login', login.value)
+    }
+
+    return { registro, login, $login };
 });

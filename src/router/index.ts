@@ -13,11 +13,11 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login,
     meta: {
       requiresAuth: false
-    }
+    },
   },
   {
     path: '/registro',
@@ -25,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Registro,
     meta: {
       requiresAuth: false
-    }
+    },
   },
   {
     path: '/seccion',
