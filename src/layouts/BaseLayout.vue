@@ -1,103 +1,90 @@
 <template>
-<ion-page >
-  <ion-menu content-id="main-content">
-    <ion-header>
-      <ion-toolbar color="tertiary">
-        <ion-title>Menu Content</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-        <ion-accordion-group>
-           <ion-accordion value="first">
-          <ion-item slot="header" color="light">
-            <ion-label>First Accordion</ion-label>
-          </ion-item>
-           <div slot="content">
-             <ion-list>
-                    <ion-item>
-                    <ion-label>Pokémon Yellow</ion-label>
-                     </ion-item>
-                     <ion-item>
-                      <ion-label>Mega Man X</ion-label>
-                       </ion-item>
-                      <ion-item>
-                        <ion-label>The Legend of Zelda</ion-label>
-                         </ion-item>
-                          <ion-item>
-                           <ion-label>Pac-Man</ion-label>
-                         </ion-item>
-                         <ion-item>
-                          <ion-label>Super Mario World</ion-label>
-                    </ion-item>
-             </ion-list>
-           </div>
-         </ion-accordion>
-           <ion-accordion value="second">
-            <ion-item slot="header" color="light">
-              <ion-label>Second Accordion</ion-label>
-               </ion-item>
-                <div slot="content">
+    <ion-page>
+        <ion-menu content-id="main-content">
+            <ion-header>
+            <ion-toolbar color="tertiary">
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+            </ion-header>
+            <ion-content>
                 <ion-list>
                     <ion-item>
-                  <ion-label>Pokémon Yellow</ion-label>
-                     </ion-item>
-                     <ion-item>
-                      <ion-label>Mega Man X</ion-label>
-                       </ion-item>
-                      <ion-item>
-                        <ion-label>The Legend of Zelda</ion-label>
-                         </ion-item>
-                          <ion-item>
-                           <ion-label>Pac-Man</ion-label>
-                         </ion-item>
-                         <ion-item>
-                          <ion-label>Super Mario World</ion-label>
-                     </ion-item>
-                     </ion-list>
-            </div>
-         </ion-accordion>
-          <ion-accordion value="third">
-           <ion-item slot="header" color="light">
-          <ion-label>Third Accordion</ion-label>
-          </ion-item>
-        <div slot="content">
-            <ion-list>
-                    <ion-item>
-                  <ion-label>Pokémon Yellow</ion-label>
-                     </ion-item>
-                     <ion-item>
-                      <ion-label>Mega Man X</ion-label>
-                       </ion-item>
-                      <ion-item>
-                        <ion-label>The Legend of Zelda</ion-label>
-                         </ion-item>
-                          <ion-item>
-                           <ion-label>Pac-Man</ion-label>
-                         </ion-item>
-                         <ion-item>
-                          <ion-label>Super Mario World</ion-label>
-                     </ion-item>
-             </ion-list>
-        </div>
-       </ion-accordion>
-  </ion-accordion-group>
-    </ion-content>
-  </ion-menu>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-        <ion-title>Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content id="main-content" class="ion-padding"> Tap the button in the toolbar to open the menu. </ion-content>
-  </ion-page>
+                        <ion-avatar aria-hidden="true" slot="start">
+                            <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        </ion-avatar>
+                        <ion-label>{{ userStore.userData.usuario }}</ion-label>
+                        <ion-button slot="end" fill="solid" size="small" @click="handleLogout">Salir</ion-button>
+                    </ion-item>
+                    <ion-accordion-group>
+                        <template v-for="(menu, key) in contentStore.menu" :key="key">
+                            <ion-accordion :value="'menu-'+key">
+                                <ion-item slot="header" color="light">
+                                    <ion-label><i :class="menu.icon"></i> {{ menu.name }}</ion-label>
+                                </ion-item>
+                                <div slot="content">
+                                    <ion-list>
+                                        <template v-for="(item, itemKey) in menu.sub" :key="itemKey">
+                                            <ion-menu-toggle v-if="item.active === 'yes'">
+                                                <ion-item 
+                                                :router-link="'/'+item.url"
+                                                @click="contentStore.$getContent(item.internal_name)"
+                                                >
+                                                    <ion-label>{{ item.name }}</ion-label>
+                                                </ion-item>
+                                            </ion-menu-toggle>
+                                        </template>
+                                    </ion-list>
+                                </div>
+                            </ion-accordion>
+                        </template>
+                    </ion-accordion-group>
+                </ion-list>
+            </ion-content>
+            <ion-footer>
+                <ion-button slot="end" fill="solid" size="small" class="boton-rojo" @click="router.push({ name: 'Camara'})">Cámara</ion-button>
+            </ion-footer>
+        </ion-menu>
+        <ion-header>
+        <ion-toolbar>
+            <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>{{ contentStore.content.contenido.name || 'Contenido' }}</ion-title>
+            <ion-progress-bar v-if="contentStore.loading" type="indeterminate"></ion-progress-bar>
+        </ion-toolbar>
+        </ion-header>
+        <ion-content id="main-content" class="ion-padding">
+            <ion-router-outlet></ion-router-outlet>
+        </ion-content>
+    </ion-page>
 </template>
 
 <script setup lang="ts">
-  import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, } from '@ionic/vue';
+  import { IonButtons, IonContent, IonHeader, IonMenu, IonMenuButton, IonPage, IonTitle, IonToolbar, IonFooter } from '@ionic/vue';
+  import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonList, IonAvatar, IonButton, IonRouterOutlet,
+    IonMenuToggle, IonProgressBar   } from '@ionic/vue';
+  import { useUserStore } from '@/stores/user';
+  import { useContentStore } from '@/stores/content';
+  import { useRouter, useRoute } from 'vue-router';
+  
+  const contentStore = useContentStore();
+  const userStore = useUserStore();
+  const router = useRouter();
+  const route = useRoute();
+  async function handleLogout(){
+    await userStore.$setLogin(null);
+    router.push('/login');
+  }
+
+  if(!contentStore.content.to && route.params.name){
+    contentStore.$getContent(route.params.name as string)
+  }
+  
+  if(!route.params.name){
+    contentStore.$getContent(contentStore.home.internal_name as string);
+    router.push( {path: '/'+contentStore.home.url })
+  }
+  //comentario de prueba
 </script>
 
 <style scoped>
